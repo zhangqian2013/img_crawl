@@ -10,3 +10,5 @@ class TutorialItem(Item):
     # name = Field()
       link = Field()
       pageLink = Field()
+      image_urls = Field()
+      images = Field()
