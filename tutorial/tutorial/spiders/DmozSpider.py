@@ -56,10 +56,18 @@ class DmozSpider(BaseSpider):
                         ALL_IMGS.add(plinkStr.split('/')[-1])
                         cmd = 'wget "%s"'%plinkStr
                         (exit_code, console_output) = getstatusoutput(cmd)
+                      
                         splitLink=plinkStr.split('/')
                         print splitLink[-1]
+                        cmdput = 'tftp localhost -c put %s'%(splitLink[-1])
+                        print 'command: ', cmdput
+                        (exit_code, console_output) = getstatusoutput(cmdput)
                         im = Image.open(splitLink[-1])
                         width,height = im.size
+                        del im 
+                        cmdrm = 'rm %s'%(splitLink[-1])
+                        print cmdrm
+                        (exit_code, console_output) = getstatusoutput(cmdrm)
                         print width,height
                         if width < 500 or height < 500:
                             continue
@@ -72,7 +80,7 @@ class DmozSpider(BaseSpider):
             #    for linkStr in item['link']
             #        print linkStr
                     
-            # if (site.select('//div/img/@src') is not None and len(site.select('//div/img/@src'))>0):
+            # if (site.select('//diiv/img/@src') is not None and len(site.select('//div/img/@src'))>0):
             #    for count2 in item['pageLink']                 
             #       pageLinkStr = site.select('//div/img/@src').extract()[count2].encode('gbk')
             #pageLinkStr= site.select('//div/img/@src').extract()
